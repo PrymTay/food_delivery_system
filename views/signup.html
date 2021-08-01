@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Registration page</title>
+        <script src="../js/popper.min.js"></script>
+        <script src="../js/jquery-3.3.1.min.js"></script>
+        <script src="../js/jquery-migrate-1.4.1.min.js"></script>
+        <script src="../js/bootstrap.bundle.min.js"></script>
+        <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+         <link rel="stylesheet" type="text/css" href="bootstrap.min.css"> 
+         <link rel="stylesheet" type="text/css" href="custom.css"> 
+         <?php include '../includes/forms.php';?>
+        
+    </head>
+    <body>
+        <div class = "container">
+            <div class="row col-md-6 col-md-offset-3">
+                <div class="panel panel-success">
+                    <div class="panel-heading text-center" >
+                           <h1>Sign-up Form</h1>
+                    </div>
+                    <div class="panel-body">
+                          <form action="../includes/forms.php" method="POST">  
+                              <div class="form-group">
+                                <i class='bx bxs-user' ></i><label for="firstName" >First Name</label>
+                            <input type="text" class="form-control" id="firstName" name="firstname" required/>
+                              </div>
+                              <div class="form-group">
+                                <i class='bx bxs-user' ></i><label for="lastName">Last Name</label>
+                                <input type="text" class="form-control" id="lastName" name="lastname" required/>
+                              </div>
+                            
+                              <div class="form-group">
+                                <i class='bx bx-envelope' ></i> <label for="email">Email</label>
+                                <input type="text" class="form-control" id="email" name="email" required/>
+                              </div>
+                              <div class="form-group">
+                                <i class='bx bxs-user' ></i><label for="username">User Name</label>
+                                <input type="text" class="form-control" id="username" name="username" required/>
+                              </div>  
+                              <div class="form-group">
+                                <i class='bx bxs-lock' ></i><label for="password">Password</label>
+                                <input type="password" class="form-control" id="password" name="pasword" required/>
+                                </div>
+                              <div class="form-group">
+                                <i class='bx bxs-lock' ></i><label for="confirmpassword">Confirm Password</label>
+                                <input type="password" class="form-control" id="phone" name="confirmpassword" required/>
+                              </div>
+                             
+                              <div>
+                                <input type="submit" value="Submit" class="btn btn-success" name="signup-submit">   
+                                <input type="submit" value="Cancel" class="btn btn-success" name="signup-submit"> 
+                              </div>
+                                                 
+                            </div>
+                            <div class="panel-body ">
+                              <p> Already have an account?
+                              <a href="login.html">Log in...</a> </p>
+                          </div>   
+                      
+                          </form>
+                          
+                          <div class="panel-footer text-center">
+                            
+                        <footer> &copy; Digital Solutions Limited</footer>
+                    </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+       
+    </body>
+
+</html> 
