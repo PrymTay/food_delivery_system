@@ -1,12 +1,20 @@
-<?php include '../includes/connection.php';?>
+<?php include '../includes/connection.php';
+
+session_start();  
+if(!isset($_SESSION["username"]))  
+{  
+     header("location:login.php?");  
+}  
+?>
+
 <!DOCTYPE html>
-<!-- Designined by CodingLab | www.youtube.com/codinglabyt -->
+
 <html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8">
-    <!--<title> Responsiive Admin Dashboard | CodingLab </title>-->
+    
     <link rel="stylesheet" href="style.css">
-    <!-- Boxicons CDN Link--> 
+ 
     <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
         <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -47,7 +55,7 @@
           </a>
         </li>
         <li>
-            <a href="menu.html">
+            <a href="menu.php">
               <i class='bx bxs-dish' ></i>
               <span class="links_name">Order Now</span>
             </a>
@@ -60,7 +68,7 @@
           </a>
         </li>
         <li class="log_out">
-          <a href="#">
+          <a href="logout.php">
             <i class='bx bx-log-out'></i>
             <span class="links_name">Log out</span>
           </a>
@@ -87,7 +95,7 @@
                     <i class='bx bxs-dish' ></i> <a class="dropdown-item" href="user.php">My orders</a><br/>
                   <i class='bx bxs-lock' ></i> <a class="dropdown-item" href="change_pwd.php">Change Password</a>
                   <div class="dropdown-divider"></div>
-                  <i class='bx bx-power-off'></i><a class="dropdown-item" href="#">Log out</a>
+                  <i class='bx bx-power-off'></i><a class="dropdown-item" href="logout.php">Log out</a>
                 </div>
             
 
@@ -100,7 +108,7 @@
       <div class="profile-detail">
         <!--<img src="images/profile.jpg" alt="">-->
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" 
-        aria-haspopup="true" aria-expanded="false"><span class="admin-name">Prim</span>
+        aria-haspopup="true" aria-expanded="false"><span class="admin-name"><?php echo $_SESSION['username']?></span>
         <i class='bx bx-caret-down'></i></a> 
         
   
