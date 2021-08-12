@@ -1,12 +1,13 @@
-<?php include '../includes/connection.php';
-
-session_start();  
-if(!isset($_SESSION["username"]))  
-{  
-     header("location:login.php?");  
-}  
+<?php 
+ session_start();
+include '../includes/connection.php';
+if(empty($_SESSION['username']))  
+{
+	header('location:login.html');
+}
+else
+{
 ?>
-
 <!DOCTYPE html>
 
 <html lang="en" dir="ltr">
@@ -38,23 +39,8 @@ if(!isset($_SESSION["username"]))
             <span class="links_name">Dashboard</span>
           </a>
         </li>
-        
-        
-        <li>
-          <a href="#">
-            <i class='bx bx-heart' ></i>
-            <span class="links_name">Favorites</span>
-          </a>
-        </li>
-       
-       
-        <li>
-          <a href="team.php">
-            <i class='bx bx-user' ></i>
-            <span class="links_name">Team</span>
-          </a>
-        </li>
-        <li>
+      
+          <li>
             <a href="menu.php">
               <i class='bx bxs-dish' ></i>
               <span class="links_name">Order Now</span>
@@ -62,7 +48,7 @@ if(!isset($_SESSION["username"]))
           </li>
       
         <li>
-          <a href="#">
+          <a href="report.php">
             <i class='bx bxs-wallet' ></i>
             <span class="links_name">Expenditure</span>
           </a>
@@ -91,8 +77,7 @@ if(!isset($_SESSION["username"]))
                 aria-haspopup="true" aria-expanded="false">My Account 
                 <i class='bx bx-caret-down'></i></a> 
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    
-                    <i class='bx bxs-dish' ></i> <a class="dropdown-item" href="user.php">My orders</a><br/>
+                 
                   <i class='bx bxs-lock' ></i> <a class="dropdown-item" href="change_pwd.php">Change Password</a>
                   <div class="dropdown-divider"></div>
                   <i class='bx bx-power-off'></i><a class="dropdown-item" href="logout.php">Log out</a>
@@ -100,13 +85,11 @@ if(!isset($_SESSION["username"]))
             
 
         </li>
-        <li><a href="menu.html">My Orders</a></li>
-       
-        
+    
     </ul>
     </div>
       <div class="profile-detail">
-        <!--<img src="images/profile.jpg" alt="">-->
+  
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" 
         aria-haspopup="true" aria-expanded="false"><span class="admin-name"><?php echo $_SESSION['username']?></span>
         <i class='bx bx-caret-down'></i></a> 
@@ -122,9 +105,12 @@ if(!isset($_SESSION["username"]))
     <div class="home-content">
     
       <?php 
-      $sql = "SELECT * FROM order_details;";
+      $sql="select `order`.id,`order`.created_at, food.name,food.price from `order` inner join order_foods on `order`.id = order_foods.order_id inner join food on food.id = order_foods.food_id where user_id = '$_SESSION[uid]';";
+      //$sql = "SELECT order.id,order_table.OrderID,order_details.food_name,order_details.price,order_details.date_ordered 
+      //from order_table inner join order_details on order_table.id = order_details.id where  id = '$_SESSION[uid]';";
+     // $sql = "SELECT * FROM order LIMIT 3;";
       $result = mysqli_query($conn, $sql);
-      $resultCheck = mysqli_num_rows($result);
+      //$resultCheck = mysqli_num_rows($result);
       //if (!($resultCheck > 0 )){
         //  echo '<tr><td colspan="2">You have no recent orders</td></tr>';
       //} else 
@@ -138,99 +124,44 @@ if(!isset($_SESSION["username"]))
             <table class="table table-striped table-hover">
               <thead>
                 <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Date</th>
+                  <th scope="col">OrderID</th>
+                  <th scope="col">Date Ordered</th>
                   <th scope="col">Food Ordered</th>
-                  <th scope="col">Amount</th>
-                  <th scope="col">Action</th>
+                  <th scope="col" >Amount</th>
+                
                 </tr>
               </thead>
-              <tbody>
+          
               <tbody>
                   <?php
-                      if( mysqli_num_rows( $result )==0 ){
-                        echo '<tr><td colspan="2">You have no recent orders</td></tr>';
-                      }else{
+                      if( mysqli_num_rows( $result ) > 0 ){
                         while( $row = mysqli_fetch_assoc( $result ) ){
-                          echo "<tr><td>{$row['food_id']}</td><td>{$row['food_name']}</td><td><td><button style=."."background-color:green;border-radius: 4px;.".">EDIT</button></td>\n";
+                          echo "<tr><td>{$row['id']}</td><td>{$row['created_at']}</td><td>{$row['name']}</td><td>{$row['price']}</td></n>";
+                       
                         }
+                       
+                        
+                      }else{
+                        echo '<tr><td colspan="4">You have no recent orders</td></tr>';
+                        
                       }
                     ?>
-                  </tbody>
+                 
                
               </tbody>
             </table>
+           
          
          
        
           </div>
-          <div class="button">
-            <a href="#">See All</a>
-          </div>
-        </div><!--
-        <div class="top-sales box">
-          <div class="title">Top Seling Product</div>
-          <ul class="top-sales-details">
-            <li>
-            <a href="#">
-              <img src="images/sunglasses.jpg" alt="">-->
-              <!---
-              <span class="product">Vuitton Sunglasses</span>
-            </a>
-            <span class="price">$1107</span>
-          </li>
-          <li>
-            <a href="#">
-               <!--<img src="images/jeans.jpg" alt="">
-              <span class="product">Hourglass Jeans </span>
-            </a>
-            <span class="price">$1567</span>
-          </li>
-          <li>
-            <a href="#">
-             <!-- <img src="images/nike.jpg" alt="">
-              <span class="product">Nike Sport Shoe</span>
-            </a>
-            <span class="price">$1234</span>
-          </li>
-          <li>
-            <a href="#">
-              <!--<img src="images/scarves.jpg" alt="">
-              <span class="product">Hermes Silk Scarves.</span>
-            </a>
-            <span class="price">$2312</span>
-          </li>
-          <li>
-            <a href="#">
-              <!--<img src="images/blueBag.jpg" alt="">
-              <span class="product">Succi Ladies Bag</span>
-            </a>
-            <span class="price">$1456</span>
-          </li>
-          <li>
-            <a href="#">
-              <!--<img src="images/bag.jpg" alt="">
-              <span class="product">Gucci Womens's Bags</span>
-            </a>
-            <span class="price">$2345</span>
-          <li>
-            <a href="#">
-              <!--<img src="images/addidas.jpg" alt="">
-              <span class="product">Addidas Running Shoe</span>
-            </a>
-            <span class="price">$2345</span>
-          </li>
-<li>
-            <a href="#">
-             <!--<img src="images/shirt.jpg" alt="">
-              <span class="product">Bilack Wear's Shirt</span>
-            </a>
-            <span class="price">$1245</span>
-          </li>
-          </ul>
+         <!--  <div class="button">
+            <a href="#">Show more</a>
+          </div> -->
+          <strong><small>Same orderid indicates content of the same order</small></strong>
         </div>
-      </div>
-    </div>-->
+    
+        
   </section>
 
   <script>
@@ -251,4 +182,9 @@ sidebarBtn.onclick = function() {
 ?>
 
     </body>
+   
 </html>
+<?php 
+} 
+
+?>
